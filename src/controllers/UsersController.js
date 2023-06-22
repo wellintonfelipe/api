@@ -41,11 +41,15 @@ export class UsersController {
 
   async update(request, response) {
     const { email, name, password, old_password } = request.body;
-    const { id } = request.params;
+    // const { id } = request.params;
+
+    const user_id = request.user.id;
 
     const database = await connection();
 
-    const user = await database.get("SELECT * FROM users WHERE id = (?)", [id]);
+    const user = await database.get("SELECT * FROM users WHERE id = (?)", [
+      user_id,
+    ]);
 
     const userWithUpdatedEmail = await database.get(
       "SELECT * FROM users WHERE email = (?)",
@@ -76,7 +80,7 @@ export class UsersController {
     const query = `UPDATE users SET name = ?, email = ?, password = ?, updated_at = DATETIME('now') WHERE id = ?
     `;
 
-    await database.run(query, [user.name, user.email, user.password, id]);
+    await database.run(query, [user.name, user.email, user.password, user_id]);
 
     return response.status(200).json({ message: `user update success` });
   }

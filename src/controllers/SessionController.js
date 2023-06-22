@@ -21,7 +21,7 @@ export class SessionController {
       throw new AppError("E-mail e/ou senha incorretos", 401);
     }
 
-    const { expiresIn, secret } = authConfig.jwt;
+    const { secret, expiresIn } = authConfig.jwt;
     const token = sign({}, secret, {
       subject: String(user.id),
       expiresIn,
