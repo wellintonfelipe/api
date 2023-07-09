@@ -4,7 +4,7 @@ import express from "express";
 import { routes } from "./routes/index.js";
 import { AppError } from "./utils/AppError.js";
 import { migrationsRun } from "./database/sqlite/migrations/index.js";
-
+import { UPLOADS_FOLDER } from "./tmp/uploads/upload.js";
 migrationsRun();
 
 //chamando o api do express
@@ -12,6 +12,8 @@ const app = express();
 
 //Em qual formato estamos usando no servidor
 app.use(express.json());
+//chamada para os aquivos de uploads
+app.use("/files", express.static(UPLOADS_FOLDER));
 
 //aplicação esta usando essa rota
 app.use(routes);
