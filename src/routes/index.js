@@ -26,4 +26,4 @@ routes.use("/tags", tagsRoutes);
 /**
  * @rota_de_session
  */
-routes.use("/session", sessionRoutes);
+routes.use("/sessions", sessionRoutes);
